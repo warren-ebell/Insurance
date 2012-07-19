@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Insurance Web</title>
+		<script language="javascript">
+			function connect(params, url) {
+				var xmlhttp;
+				if (window.XMLHttpRequest) {
+					// code for IE7+, Firefox, Chrome, Opera, Safari
+	  				xmlhttp = new XMLHttpRequest();
+	  			}
+				else {
+					// code for IE6, IE5
+	  				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	  			}
+				xmlhttp.onreadystatechange = function() {
+	                if (xmlhttp.readyState == 4) {
+	                    document.getElementById('response').innerHTML = xmlhttp.responseText;
+	                }
+	                if (xmlhttp.readyState == 1 ||
+	                    xmlhttp.readyState == 2 ||
+	                    xmlhttp.readyState == 3    ) {
+	                    document.getElementById('response').innerHTML = '<span style="color:green;">	Saving ...</span>';
+	                }
+	            }
+				xmlhttp.open("POST",url,true);
+				xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xmlhttp.setRequestHeader("Content-length", params.length);
+				xmlhttp.setRequestHeader("connection", "close");
+				xmlhttp.send(params);
+			}
+			
+			function submitData() {
+				var url = "controller";
+				var name = document.getElementById('name').value;
+				var surname = document.getElementById('surname').value;
+				var idNo = document.getElementById('idNo').value;
+				var dateOfBirth = document.getElementById('dateOfBirth').value;
+				var physicalAddress = document.getElementById('physicalAddress').value;
+				var postalAddress = document.getElementById('postalAddress').value;
+				var contactNumber = document.getElementById('contactNumber').value;
+	            var personRole = document.getElementById('personRole').value;
+				var params = "action=addPerson&name="+name+"&surname="+surname+"&idNo="+idNo+"&dateOfBirth="+dateOfBirth+"&physicalAddress="+physicalAddress+"&postalAddress="+postalAddress+"&contactNumber="+contactNumber+"&personRole="+personRole;
+					
+				var connection = connect(params,url);
+			}
+		</script>
+	</head>
+	<body>
+		<a href="index.html">Back</a>
+		<form>
+			<table>
+				<tr><td>First name: </td><td><input type="text" name="name" id="name"/></td></tr>
+				<tr><td>Surname: </td><td><input type="text" name="surname" id="surname"/></td></tr>
+				<tr><td>ID Number: </td><td><input type="text" name="idNo" id="idNo"/></td></tr>
+				<tr><td>Date of Birth: </td><td><input type="text" name="dateOfBirth" id="dateOfBirth"/></td></tr>
+				<tr><td>Physical Address: </td><td><input type="text" name="physicalAddress" id="physicalAddress"/></td></tr>
+				<tr><td>Postal Address: </td><td><input type="text" name="postalAddress" id="postalAddress"/></td></tr>
+				<tr><td>Contact Number: </td><td><input type="text" name="contactNumber" id="contactNumber"/></td></tr>
+				<tr><td>Person Role: </td><td><select name="personRole" id="personRole">
+								<option value="MEMBER" selected="selected">MEMBER</option>
+								<option value="SPOUSE">SPOUSE</option>
+								<option value="DEPENDANT">DEPENDANT</option>
+								<option value="CHILD">CHILD</option>
+							 </select></td></tr>
+				<tr><td></td><td><input type="button" value="ADD PERSON" onclick="submitData()"></td></tr>
+			</table>
+		</form>
+		<div id="response">
+		</div>
+	</body>
+</html>

@@ -1,0 +1,34 @@
+<!--datasource 
+			jndi-name="java:/PostgresDS" 
+			pool-name="PostgresDS" 
+			enabled="true" 
+			jta="true">
+   <connection-url>jdbc:postgresql://localhost:5432/insurance</connection-url>
+   <driver>org.postgresql</driver>
+   <pool>
+       <min-pool-size>1</min-pool-size>
+       <max-pool-size>4</max-pool-size>
+       <prefill>false</prefill>
+       <use-strict-min>false</use-strict-min>
+      <flush-strategy>FailingConnectionOnly</flush-strategy>
+   </pool>
+       <security>
+             <user-name>postgres</user-name>
+             <password>password</password>
+       </security>
+  </datasource-->
+
+	<datasources>
+	  <xa-datasource>
+	    <jndi-name>postgresDS</jndi-name>
+	    <use-java-context>true</use-java-context>
+	    <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+	    <xa-datasource-property name="ServerName">localhost</xa-datasource-property>
+	    <xa-datasource-property name="PortNumber">5432</xa-datasource-property>
+	    <xa-datasource-property name="DatabaseName">insurance</xa-datasource-property>
+	    <xa-datasource-property name="User">postgres</xa-datasource-property>
+	    <xa-datasource-property name="Password">password</xa-datasource-property>
+	    <track-connection-by-tx>false</track-connection-by-tx>
+	  </xa-datasource>
+	</datasources>
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Insurance Web</title>
+		<script language="javascript">
+			function connect(params, url) {
+				var xmlhttp;
+				if (window.XMLHttpRequest) {
+					// code for IE7+, Firefox, Chrome, Opera, Safari
+	  				xmlhttp = new XMLHttpRequest();
+	  			}
+				else {
+					// code for IE6, IE5
+	  				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	  			}
+				xmlhttp.onreadystatechange = function() {
+	                if (xmlhttp.readyState == 4) {
+	                    document.getElementById('response').innerHTML = xmlhttp.responseText;
+	                }
+	                if (xmlhttp.readyState == 1 ||
+	                    xmlhttp.readyState == 2 ||
+	                    xmlhttp.readyState == 3    ) {
+	                    document.getElementById('response').innerHTML = '<span style="color:green;">	Searching...</span>';
+	                }
+	            }
+				xmlhttp.open("POST",url,true);
+				xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xmlhttp.setRequestHeader("Content-length", params.length);
+				xmlhttp.setRequestHeader("connection", "close");
+				xmlhttp.send(params);
+			}
+			
+			function submitData() {
+				var url = "controller";
+				var name = document.getElementById('name').value;
+				var surname = document.getElementById('surname').value;
+				var idNo = document.getElementById('idNo').value;
+				var dateOfBirth = document.getElementById('dateOfBirth').value;
+				var params = "action=searchPersonByID&name="+name+"&surname="+surname+"&idNo="+idNo+"&dateOfBirth="+dateOfBirth;
+					
+				var connection = connect(params,url);
+			}
+		</script>
+	</head>
+	<body>
+		<a href="index.html">Back</a>
+		<form>
+			<table>
+				<tr><td>ID Number: </td><td><input type="text" name="idNo" id="idNo"/></td></tr>
+				<tr><td></td><td><input type="button" value="SEARCH" onclick="submitData()"></td></tr>
+			</table>
+		</form>
+		<div id="response">
+		</div>
+	</body>	
+</html>
